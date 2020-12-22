@@ -50,6 +50,7 @@ const CustomizedInputBase = (props) => {
 
   const { city } = props.location;
 
+  const [loading, setLoading] = useState(false);
   const [cityName, setCityName] = useState(city);
   const [address, setAddress] = useState("");
   const [cities, setCities] = useState([]);
@@ -112,17 +113,24 @@ const CustomizedInputBase = (props) => {
         currentCities.push(obj);
       }
     }
+    setLoading(false);
     setCities(currentCities);
   }, [suggestions])
 
   const handleCities = (e, suggestions) => {
+    setLoading(true);
     setCityName(e.target.value);
     setSuggestion(suggestions);
   }
 
+  const handleError = () => {
+    setLoading(false);
+    alert('Please provide valid city')
+  }
+
   return (
-    <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}>
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+    <PlacesAutocomplete onError={handleError} value={address} onChange={setAddress} onSelect={handleSelect}>
+        {({ getInputProps, suggestions, getSuggestionItemProps }) => (
           <div>
             <Paper component="form" className={classes.root}>
               <IconButton className={classes.iconButton} aria-label="menu">
@@ -143,7 +151,7 @@ const CustomizedInputBase = (props) => {
             </Paper>
 
             <div>
-              {loading ? <div>...loading</div> : null}
+              {loading ? <div>loading...</div> : null}
               {renderCities(getSuggestionItemProps)}
             </div>
           </div>
