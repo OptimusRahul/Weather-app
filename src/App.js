@@ -1,23 +1,75 @@
-import logo from './logo.svg';
+import { useCallback, useEffect, useState } from 'react';
+
+import CityData from './components/City/cityData';
+import Heading from './components/Heading/heading';
+import Line from './components/Chart/lineChart';
+import Weather from './components/Heading/weather';
+import SunChart from './components/Chart/sunChart';
+
+import { ipLookUp, getWeatherReport } from './api/index';
+
+import Input from './components/UI/input';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper'
+
 import './App.css';
 
-function App() {
+const App = () => {
+  const [locationReport, setLocationReport] = useState();
+  const [date, setDate] = useState(null);
+
+  const getLocationWeatherReport = async({ lat, lon }) => {
+    const data = await getWeatherReport({ lat, lon });
+    setLocationReport(data);
+  }
+
+  const getIpLookUp = useCallback(() => {
+    (async function ip() {
+      const { dnsData, ednsData } = await ipLookUp();          
+      if(ednsData) {
+        getLocationWeatherReport(ednsData);
+      }
+      else {
+        getLocationWeatherReport(dnsData);
+      }
+    })()
+  },[])
+
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async function success({ coords }) {
+          const { latitude, longitude } = coords;
+          const locationData = { lat: latitude, lon: longitude };
+          getLocationWeatherReport(locationData);
+        },
+
+        function error(error) {
+          getIpLookUp();
+        }
+      )
+    } else {
+      getIpLookUp();
+    }
+  }, [getIpLookUp]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Input location={locationReport} getLocationWeatherReport={getLocationWeatherReport}/>
+      {locationReport !== undefined ? <CityData location={locationReport} setDate={setDate}/> : <CircularProgress /> }
+      <Paper elevation={3} style={{ width: '45rem', height: '49rem' }}>
+        {
+          locationReport !== undefined ?
+          (
+            <>
+              <div> <Heading location={locationReport} /> </div>
+              <div className="chartWrapper"> <Line location={locationReport} date={date}/> </div>
+              <div style={{ display: "flex", justifyContent: "space-around" }}> <Weather location={locationReport}/> </div>
+              <div className="chartWrapper2"> <SunChart location={locationReport}/> </div>
+            </>
+          ) : <CircularProgress />
+        }
+      </Paper>
     </div>
   );
 }

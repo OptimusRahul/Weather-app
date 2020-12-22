@@ -1,38 +1,65 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+
+.chartWrapper {
+  position: relative;
+  overflow-x: scroll;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.chartWrapper2{
+  position: relative;
+}
+
+.chartWrapper > canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events:none;
+  
+}
+
+.chartWrapper2 > canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events:none;
+  
+}
+
+.chartAreaWrapper {
+  width: 700px !important;
+}
+
+@media only screen and (max-width: 500px) {
+  .MuiPaper-elevation3{
+    width: 21rem !important;
   }
-  to {
-    transform: rotate(360deg);
+
+  .test {
+    max-width: 336px;
+    overflow-x: hidden;
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .MuiPaper-elevation3{
+    width: 21rem !important;
+  }
+
+  .test {
+    max-width: 336px;
+  }
+
+  html {
+    overflow-x: hidden;
   }
 }
