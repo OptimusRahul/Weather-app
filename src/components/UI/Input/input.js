@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import React, { useEffect, useState } from 'react';
+import PlacesAutocomplete, { geocodeByAddress } from "react-places-autocomplete";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -100,6 +100,7 @@ const CustomizedInputBase = (props) => {
     })
   }
 
+  // eslint-disable-next-line
   useEffect(async() => {
     const currentCities = [];
     for(const suggestion of suggestions) {
@@ -130,6 +131,7 @@ const CustomizedInputBase = (props) => {
 
               <InputBase
                 className={classes.input}
+                // eslint-disable-next-line
                 inputProps={{ 'aria-label': 'search google maps' }, { ...getInputProps({ placeholder: cityName }) }}
                 value={cityName}
                 fullWidth={true}
