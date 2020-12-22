@@ -118,13 +118,16 @@ const CustomizedInputBase = (props) => {
   }, [suggestions])
 
   const handleCities = (e, suggestions) => {
-    setLoading(true);
-    setCityName(e.target.value);
-    setSuggestion(suggestions);
+    if(e.target.value){
+      setLoading(true);
+      setCityName(e.target.value);
+      setSuggestion(suggestions);
+    }
   }
 
   const handleError = () => {
     setLoading(false);
+    setCities([]);
     alert('Please provide valid city')
   }
 
