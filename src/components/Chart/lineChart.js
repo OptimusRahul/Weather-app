@@ -1,6 +1,8 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
+import { convertTime } from '../../utility/utility';
+
 const lineChart = props => {
     let lineChart;
     
@@ -39,7 +41,10 @@ const lineChart = props => {
                 height={200}
                 width={900}
                 data={{
-                    labels: data.map(item => new Date(item.dt * 1000).getHours()),
+                    labels: data.map(item => {
+                        let currentHour = new Date(item.dt * 1000).getHours()
+                        return convertTime(currentHour);
+                    }),
                     datasets: [{
                         data: data.map(item => item.temp),
                         fill: false,

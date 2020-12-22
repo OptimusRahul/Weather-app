@@ -8,7 +8,7 @@ import SunChart from './components/Chart/dayTimeChart';
 
 import { ipLookUp, getWeatherReport } from './api/index';
 
-import Input from './components/UI/input';
+import Input from './components/UI/Input/input';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper'
 
@@ -55,7 +55,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Input location={locationReport} getLocationWeatherReport={getLocationWeatherReport}/>
+      <Input location={locationReport === undefined ? { city: 'none'} : locationReport } getLocationWeatherReport={getLocationWeatherReport}/>
       {locationReport !== undefined ? <CityData location={locationReport} setDate={setDate}/> : <CircularProgress /> }
       <Paper elevation={3} style={{ width: '45rem', height: '49rem' }}>
         {
