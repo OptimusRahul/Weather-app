@@ -9,12 +9,13 @@ const CityData = props => {
     const [dayIndex, setDayIndex] = useState();
 
     const { setDate, location } = props;
+    const { daily } = location;
     
     useEffect(() => {
         if(dayIndex !== undefined) {
-            setDate(location.daily[dayIndex].dt);
+            setDate(daily[dayIndex].dt);
         }
-    }, [dayIndex]);
+    }, [dayIndex, daily, setDate]);
 
     const setClass = i => setDayIndex(i);
 

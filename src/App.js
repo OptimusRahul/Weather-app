@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import CityData from './components/City/cityData';
-import Heading from './components/Heading/heading';
+import CityData from './components/DailyCityData/cityData';
+import Heading from './components/Atmosphere/Atmosphere';
 import Line from './components/Chart/lineChart';
-import Weather from './components/Heading/weather';
-import SunChart from './components/Chart/sunChart';
+import Pressure from './components/Atmosphere/Pressure';
+import SunChart from './components/Chart/dayTimeChart';
 
 import { ipLookUp, getWeatherReport } from './api/index';
 
@@ -64,7 +64,7 @@ const App = () => {
             <>
               <div> <Heading location={locationReport} /> </div>
               <div className="chartWrapper"> <Line location={locationReport} date={date}/> </div>
-              <div style={{ display: "flex", justifyContent: "space-around" }}> <Weather location={locationReport}/> </div>
+              <div style={{ display: "flex", justifyContent: "space-around" }}> <Pressure location={locationReport}/> </div>
               <div className="chartWrapper2"> <SunChart location={locationReport}/> </div>
             </>
           ) : <CircularProgress />

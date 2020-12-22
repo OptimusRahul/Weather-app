@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: '45rem',
-    display: 'flex',
     justifyContent: 'space-between',
     height: '50px'
   },

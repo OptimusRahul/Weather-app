@@ -27,6 +27,7 @@ const lineChart = props => {
             if(today === currentDate) {
                 data.push(item);
             }
+            return data;
         })
 
         if(data.length === 1) {

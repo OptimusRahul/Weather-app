@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Line } from 'react-chartjs-2';
 
-const sunChart = props => {
+const dayTimeChart = props => {
     let lineChart;
     
     lineChart=(
@@ -61,4 +61,4 @@ const sunChart = props => {
     )
 }
 
-export default sunChart;
+export default dayTimeChart;
