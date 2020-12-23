@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { returnImage } from '../../utility/getImages';
 import './cityData.css';
