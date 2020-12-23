@@ -6,8 +6,7 @@ import './cityData.css';
 const days = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
 
 const CityData = props => {
-    // const [dayIndex, setDayIndex] = useState(0);
-
+    
     const { setDate, location, dayIndex, setDayIndex } = props;
     const { daily } = location;
     

@@ -3,8 +3,7 @@ import PlacesAutocomplete, { geocodeByAddress } from "react-places-autocomplete"
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, InputBase, IconButton, CircularProgress } from '@material-ui/core';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import SearchIcon from '@material-ui/icons/Search';
+import { LocationOn, Search } from '@material-ui/icons';
 
 import { getCityCoords } from '../../../api/index';
 import { returnImage } from '../../../utility/getImages';
@@ -137,7 +136,7 @@ const CustomizedInputBase = (props) => {
           <div>
             <Paper component="form" className={classes.root}>
               <IconButton className={classes.iconButton} aria-label="menu">
-                <LocationOnIcon />
+                <LocationOn />
               </IconButton>
 
               <InputBase
@@ -149,7 +148,7 @@ const CustomizedInputBase = (props) => {
                 onChange={(e) => handleCities(e, suggestions)}
                 />
               <IconButton type="submit" className={classes.iconButton} aria-label="search">
-                <SearchIcon />
+                <Search />
               </IconButton>
             </Paper>
 

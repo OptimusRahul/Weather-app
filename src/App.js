@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import CityData from './components/DailyCityData/cityData';
-import Heading from './components/Atmosphere/Atmosphere';
-import Line from './components/Chart/lineChart';
-import Pressure from './components/Atmosphere/Pressure';
-import SunChart from './components/Chart/dayTimeChart';
+import { CircularProgress, Paper } from '@material-ui/core';
 
 import { ipLookUp, getWeatherReport } from './api/index';
 
-import Input from './components/UI/Input/searchBar';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Paper from '@material-ui/core/Paper'
+import CityData from './components/DailyCityData/cityData';
+import Heading from './components/Atmosphere/atmosphere';
+import Line from './components/Chart/lineChart';
+import Pressure from './components/Atmosphere/pressure';
+import SunChart from './components/Chart/dayTimeChart';
+import Input from './components/UI/searchBar/searchBar';
 
 import './App.css';
 
