@@ -72,7 +72,33 @@ const lineChart = props => {
             />
         )
     } else {
-        lineChart = "OOPS!! No data to plot"
+        lineChart = (
+            <Line
+                height={200}
+                width={900}
+                data={{
+                    labels: [],
+                    datasets: [{}]                
+                }}
+
+                options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            display: false,
+                        }],
+                        xAxes: [{
+                        display: true, 
+                        stacked: true,                                   
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    }
+                }}
+            />
+        )
     }
 
     return (

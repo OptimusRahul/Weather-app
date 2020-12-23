@@ -52,7 +52,7 @@ const dayTimeChart = props => {
             <div className="test" style={{ margin: '2rem 0', overflowX: 'hidden' }}>
                 {lineChart}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', overflowX: 'hidden' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', overflowX: 'hidden' }}>
                 <h5>6AM</h5>
                 <h5>1PM</h5>
                 <h5>8PM</h5>

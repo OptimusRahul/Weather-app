@@ -8,7 +8,7 @@ import SunChart from './components/Chart/dayTimeChart';
 
 import { ipLookUp, getWeatherReport } from './api/index';
 
-import Input from './components/UI/Input/input';
+import Input from './components/UI/Input/searchBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper'
 
@@ -17,6 +17,7 @@ import './App.css';
 const App = () => {
   const [locationReport, setLocationReport] = useState();
   const [date, setDate] = useState(null);
+  const [dayIndex, setDayIndex] = useState(0);
 
   const getLocationWeatherReport = async({ lat, lon }) => {
     const data = await getWeatherReport({ lat, lon });
@@ -56,13 +57,13 @@ const App = () => {
   return (
     <div className="App">
       <Input location={locationReport === undefined ? { city: 'none'} : locationReport } getLocationWeatherReport={getLocationWeatherReport}/>
-      {locationReport !== undefined ? <CityData location={locationReport} setDate={setDate}/> : <CircularProgress /> }
+      {locationReport !== undefined ? <CityData location={locationReport} dayIndex={dayIndex} setDayIndex={setDayIndex} setDate={setDate}/> : <CircularProgress /> }
       <Paper elevation={3} style={{ width: '45rem', height: '49rem' }}>
         {
           locationReport !== undefined ?
           (
             <>
-              <div> <Heading location={locationReport} /> </div>
+              <div> <Heading location={locationReport} date={date}/> </div>
               <div className="chartWrapper"> <Line location={locationReport} date={date}/> </div>
               <div style={{ display: "flex", justifyContent: "space-around" }}> <Pressure location={locationReport}/> </div>
               <div className="chartWrapper2"> <SunChart location={locationReport}/> </div>

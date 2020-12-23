@@ -2,16 +2,14 @@ import React, { useEffect, useState } from 'react';
 import PlacesAutocomplete, { geocodeByAddress } from "react-places-autocomplete";
 
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
+import { Paper, InputBase, IconButton, CircularProgress } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { getCityCoords } from '../../../api/index';
 import { returnImage } from '../../../utility/getImages';
 
-import './input.css';
+import './searchBar.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: '45rem',
+    marginTop: '1rem'
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -62,34 +61,34 @@ const CustomizedInputBase = (props) => {
     setCityName(city);
   }, [city])
 
-  const handleSelect = async(value) => {
-    const results = await geocodeByAddress(value);
+  const handleSelect = async(address) => {
+    const results = await geocodeByAddress(address);
     try{
-      const city = results[0].address_components[0].long_name;
+      const { long_name: city } = results?.[0]?.address_components?.[0] ?? { long_name: '' };
       const data = await getCityCoords(city);
       const { lat, lon } = data.city.coord;
       props.getLocationWeatherReport({ lat, lon });
       setCities([]);
-      setAddress(value);
+      setAddress(address);
     } catch(err) {
       alert('Cannot find weather for the selected city')
     }
   };
 
   const renderCities = (getSuggestionItemProps) => {
-    return cities.map((city, index) => {
+    return cities.map(({ suggestion, name, country, weather, temp }, index) => {
         return (
           <div key={index}>
             <Paper
               component="form"
               className={classes.root1}
-              style={{ zIndex: 100 }}
-              {...getSuggestionItemProps(city.suggestion)}>
-              <div>{city.name}, {city.country}</div>
+              style={{ cursor: 'pointer' }}
+              {...getSuggestionItemProps(suggestion)}>
+              <div>{name}, {country}</div>
               <div className={classes.temp}>
                 <div>
-                  <h3 style={{ height: '10px' }}>{city.temp}<span>&#176;</span>C</h3>
-                  <h3>{city.weather}</h3>
+                  <h3 style={{ height: '10px' }}>{Math.ceil(temp)}<span>&#176;</span>C</h3>
+                  <h3>{weather}</h3>
                 </div>
                 <div>
                   <img src={returnImage(city.weather)} width="40px" height="40px" alt={props.type} />
@@ -108,7 +107,8 @@ const CustomizedInputBase = (props) => {
       const cityName = suggestion.formattedSuggestion.mainText;
       const countryName = suggestion.formattedSuggestion.secondaryText;
       let data = await getCityCoords(cityName);
-      if(data !== undefined && data !== null && !data.error){
+      console.log(data, suggestion)
+      if(data && !data.error){
         let obj = { suggestion, name: cityName, country: countryName, temp: data.city.main.temp, weather: data.city.weather[0].main}
         currentCities.push(obj);
       }
@@ -153,8 +153,8 @@ const CustomizedInputBase = (props) => {
               </IconButton>
             </Paper>
 
-            <div>
-              {loading ? <div>loading...</div> : null}
+            <div  style={{ position: 'absolute' }}>
+              {loading ? <div style={{ margin: 'auto' }}><CircularProgress /></div> : null}
               {renderCities(getSuggestionItemProps)}
             </div>
           </div>

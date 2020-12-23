@@ -7,9 +7,10 @@ const style = {
     background: '#add8e6',
     margin: '2rem 0',
     width: '10rem',
-    height: '5rem',
+    height: '4rem',
     borderRadius: '5px',
-    marginLeft: '2px'
+    marginLeft: '2px',
+    padding: '10px'
 }
 
 const PressureHumidity = props => {

@@ -6,9 +6,9 @@ import './cityData.css';
 const days = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
 
 const CityData = props => {
-    const [dayIndex, setDayIndex] = useState();
+    // const [dayIndex, setDayIndex] = useState(0);
 
-    const { setDate, location } = props;
+    const { setDate, location, dayIndex, setDayIndex } = props;
     const { daily } = location;
     
     useEffect(() => {
@@ -19,12 +19,11 @@ const CityData = props => {
 
     const setClass = i => setDayIndex(i);
 
-    
     let selectedcssClass = "city_container-data";
 
     return (
         <div className="city_container">
-            {props.location.daily.map((item, index) => {
+            {daily.map((item, index) => {
                 if(dayIndex !== undefined && index === dayIndex){
                     selectedcssClass="city_container-data selected"
                 } else {
